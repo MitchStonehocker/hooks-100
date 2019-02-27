@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 
 import Joke from './Joke'
+import Stories from './Stories'
 
 export default function App () {
   const [userQuery, setUserQuery] = useState('')
@@ -24,6 +25,7 @@ export default function App () {
   return (
     <div className='App'>
       <h1>Hi Mitch</h1>
+      <hr />
       <div className='form'>
         <input
           value={userQuery}
@@ -31,9 +33,11 @@ export default function App () {
           onKeyPress={handleKeyPress}
         />
         <button onClick={searchQuery}>Serach</button>
-        <hr />
-        <Joke />
       </div>
+      <hr />
+      <Joke />
+      <hr />
+      <Stories />
     </div>
   )
 }
