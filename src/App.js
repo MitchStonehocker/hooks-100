@@ -1,4 +1,8 @@
+// src/App.js
+
 import React, { useState } from 'react'
+
+import Joke from './Joke'
 
 export default function App () {
   const [userQuery, setUserQuery] = useState('')
@@ -27,6 +31,8 @@ export default function App () {
           onKeyPress={handleKeyPress}
         />
         <button onClick={searchQuery}>Serach</button>
+        <hr />
+        <Joke />
       </div>
     </div>
   )
