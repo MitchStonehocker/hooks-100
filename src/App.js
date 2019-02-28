@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 import Joke from './Joke'
 import Stories from './Stories'
+import Tasks from './Tasks'
 
 export default function App () {
   const [userQuery, setUserQuery] = useState('')
@@ -38,6 +39,8 @@ export default function App () {
       <Joke />
       <hr />
       <Stories />
+      <hr />
+      <Tasks />
     </div>
   )
 }
