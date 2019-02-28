@@ -1,7 +1,45 @@
 // src/Task.js
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import uuid from 'uuid/v4'
+
+const initialTasksState = {
+  tasks: [],
+  completedTasks: []
+}
+
+const TYPES = {
+  ADD_TASK: 'ADD_TASK',
+  COMPLETE_TASK: 'COMPLETE_TASK',
+  DELETE_TASK: 'DELETE_TASK'
+}
+
+const tasksReducer = (state, action) => {
+  console.log('>>>-Tasks-{state, action}->', { state, action })
+  switch (action.type) {
+    case TYPES.ADD_TASK:
+      return {
+        ...state,
+        tasks: [...state.tasks, action.task]
+      }
+    case TYPES.COMPLETE_TASK:
+      const { completedTask } = action
+      return {
+        ...state,
+        completedTasks: [...state.completedTasks, completedTask],
+        tasks: state.tasks.filter(t => t.id !== completedTask.id)
+      }
+    case TYPES.DELETE_TASK:
+      return {
+        ...state,
+        completedTasks: state.completedTasks.filter(
+          t => t.id !== action.task.id
+        )
+      }
+    default:
+      return state
+  }
+}
 
 const TASKS_STORAGE_KEY = 'TASKS_STORAGE_KEY'
 
@@ -11,16 +49,15 @@ const storeTasks = taskMap => {
 
 const readStoredTasks = () => {
   const taskMap = JSON.parse(localStorage.getItem(TASKS_STORAGE_KEY))
-  return taskMap || { tasks: [], completedTasks: [] }
+  return taskMap || initialTasksState
 }
 
 export default function Tasks () {
   const [taskText, setTaskText] = useState('')
   const storedTasks = readStoredTasks()
-  const [tasks, setTasks] = useState(storedTasks.tasks)
-  const [completedTasks, setCompletedTasks] = useState(
-    storedTasks.completedTasks
-  )
+
+  const [state, dispatch] = useReducer(tasksReducer, storedTasks)
+  const { tasks, completedTasks } = state
 
   useEffect(() => {
     storeTasks({ tasks, completedTasks })
@@ -31,16 +68,15 @@ export default function Tasks () {
   }
 
   const addTask = event => {
-    setTasks([...tasks, { taskText, id: uuid() }])
+    dispatch({ type: TYPES.ADD_TASK, task: { taskText, id: uuid() } })
     setTaskText('')
   }
 
   const completeTask = completedTask => () => {
-    setCompletedTasks([...completedTasks, completedTask])
-    setTasks(tasks.filter(task => task.id !== completedTask.id))
+    dispatch({ type: TYPES.COMPLETE_TASK, completedTask })
   }
   const deleteTask = task => () => {
-    setCompletedTasks(completedTasks.filter(t => t.id !== task.id))
+    dispatch({ type: TYPES.DELETE_TASK, task })
   }
 
   const handleKeyPress = event => {
