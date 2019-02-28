@@ -49,8 +49,8 @@ export default function Tasks () {
     }
   }
 
-  console.log('>>>-Tasks-tasks->', tasks)
-  console.log('>>>-Tasks-completedTasks->', completedTasks)
+  // console.log('>>>-Tasks-tasks->', tasks)
+  // console.log('>>>-Tasks-completedTasks->', completedTasks)
 
   return (
     <div>

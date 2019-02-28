@@ -5,9 +5,11 @@ import React, { useState } from 'react'
 import Joke from './Joke'
 import Stories from './Stories'
 import Tasks from './Tasks'
+import Gallery from './Gallery'
 
 export default function App () {
   const [userQuery, setUserQuery] = useState('')
+  const [showGallery, setShowGallery] = useState(true)
 
   const updateUserQuery = event => {
     setUserQuery(event.target.value)
@@ -21,6 +23,10 @@ export default function App () {
     if (event.key === 'Enter') {
       searchQuery()
     }
+  }
+
+  const toggleShowGallery = () => {
+    setShowGallery(!showGallery)
   }
 
   return (
@@ -39,6 +45,14 @@ export default function App () {
       <Joke />
       <hr />
       <Tasks />
+      <hr />
+      <div>
+        {showGallery ? <Gallery /> : null}
+        <button onClick={toggleShowGallery}>
+          {showGallery ? 'Hide' : 'Show'} Gallery
+        </button>
+      </div>
+
       <hr />
       <Stories />
     </div>
