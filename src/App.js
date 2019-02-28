@@ -6,6 +6,7 @@ import Joke from './Joke'
 import Stories from './Stories'
 import Tasks from './Tasks'
 import Gallery from './Gallery'
+import Matrix from './Matrix'
 
 export default function App () {
   const [userQuery, setUserQuery] = useState('')
@@ -55,6 +56,8 @@ export default function App () {
 
       <hr />
       <Stories />
+      <hr />
+      <Matrix />
     </div>
   )
 }

@@ -14,7 +14,7 @@ export default function Gallery () {
 
   useEffect(
     () => {
-      console.log('>>>-Gallery-{delay,increment}->', { delay, increment })
+      //   console.log('>>>-Gallery-{delay,increment}->', { delay, increment })
 
       const interval = setInterval(() => {
         setIndex(storedIndex => {
