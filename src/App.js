@@ -38,9 +38,9 @@ export default function App () {
       <hr />
       <Joke />
       <hr />
-      <Stories />
-      <hr />
       <Tasks />
+      <hr />
+      <Stories />
     </div>
   )
 }
